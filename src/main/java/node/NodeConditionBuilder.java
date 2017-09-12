@@ -33,7 +33,7 @@ public abstract class NodeConditionBuilder implements Node {
 
     public boolean evaluate() {
         if (conditionEvaluator == null) return state;
-        return conditionEvaluator.isTrue();
+        return conditionEvaluator.evaluateTrue();
     }
 
     public Builder builder() {
@@ -41,7 +41,6 @@ public abstract class NodeConditionBuilder implements Node {
     }
 
     public class Builder {
-
         private List<Condition> conditionList;
 
         public Builder ifTrue(Supplier<Boolean> condition) {

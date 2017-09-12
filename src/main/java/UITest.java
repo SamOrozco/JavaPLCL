@@ -62,13 +62,13 @@ public class UITest extends Application {
                 .withCondition(new ConditionStatement(
                         NodeOperator.OR,
                         new NodeCondition(buttonNode0::conditionIsTrue, true),
+                        new NodeCondition(buttonNode1::conditionIsTrue, true),
+                        new NodeCondition(buttonNode2::conditionIsTrue, true)))
+                .withCondition(new ConditionStatement(
+                        NodeOperator.AND, false,
                         new NodeCondition(buttonNode0::conditionIsTrue, true),
-                        new NodeCondition(buttonNode0::conditionIsTrue, true)))
-//                .withCondition(new ConditionStatement(
-//                        NodeOperator.OR,
-//                        new NodeCondition(buttonNode0::conditionIsTrue, false),
-//                        new NodeCondition(buttonNode0::conditionIsTrue, false),
-//                        new NodeCondition(buttonNode0::conditionIsTrue, true)))
+                        new NodeCondition(buttonNode1::conditionIsTrue, true),
+                        new NodeCondition(buttonNode2::conditionIsTrue, true)))
                 .build();
 
         //executor
