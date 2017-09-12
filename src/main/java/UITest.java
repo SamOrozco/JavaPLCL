@@ -3,18 +3,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import node.ConditionStatement;
-import node.NodeCondition;
-import node.NodeOperator;
 import node.light.ButtonNode;
+import node.light.ConveyorNode;
 import node.light.LightNode;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class UITest extends Application {
 
@@ -30,64 +25,56 @@ public class UITest extends Application {
             buttonNode0.toggle();
         });
 
-        Button button1 = new Button();
-        ButtonNode buttonNode1 = new ButtonNode(button1);
-        button1.setText("    ");
-        button1.setOnAction(e -> {
-            buttonNode1.toggle();
-        });
 
-        Button button2 = new Button();
-        ButtonNode buttonNode2 = new ButtonNode(button2);
-        button2.setText("     ");
-        button2.setOnAction(e -> {
-            buttonNode2.toggle();
-        });
+        Button conveyorButton = new Button();
+        ConveyorNode conveyorNode = new ConveyorNode(conveyorButton);
+        conveyorNode.setBounds(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getMinX());
+        conveyorNode.builder()
+                .ifTrue(buttonNode0::conditionIsTrue)
+                .build();
 
 
-        Button button3 = new Button();
-        LightNode lightNode = new LightNode(button3);
-        button3.setText("Light");
+        Button lightButton = new Button();
+        LightNode lightNode = new LightNode(lightButton);
+        lightButton.setText("Light");
 
 
         //conditions
-        buttonNode0
-                .builder()
-                .ifTrue(buttonNode1::conditionIsTrue)
-                .ifTrue(buttonNode2::conditionIsTrue)
+        lightNode.builder()
+                .ifTrue(buttonNode0::conditionIsTrue)
                 .build();
 
-        //light condition
-        lightNode.builder()
-                .withCondition(new ConditionStatement(
-                        NodeOperator.OR,
-                        new NodeCondition(buttonNode0::conditionIsTrue, true),
-                        new NodeCondition(buttonNode1::conditionIsTrue, true),
-                        new NodeCondition(buttonNode2::conditionIsTrue, true)))
-                .withCondition(new ConditionStatement(
-                        NodeOperator.AND, false,
-                        new NodeCondition(buttonNode0::conditionIsTrue, true),
-                        new NodeCondition(buttonNode1::conditionIsTrue, true),
-                        new NodeCondition(buttonNode2::conditionIsTrue, true)))
-                .build();
 
         //executor
         executor.getNodes().add(buttonNode0);
-        executor.getNodes().add(buttonNode1);
-        executor.getNodes().add(buttonNode2);
         executor.getNodes().add(lightNode);
+        executor.getNodes().add(conveyorNode);
         executor.execute();
 
         //ui
-        StackPane stackPane = new StackPane();
-        GridPane gridPane = new GridPane();
-        gridPane.add(button0, 1, 0);
-        gridPane.add(button1, 2, 1);
-        gridPane.add(button2, 3, 2);
-        gridPane.add(button3, 4, 3);
-        stackPane.getChildren().add(gridPane);
+        Pane pane = new Pane();
 
-        primaryStage.setScene(new Scene(stackPane, 400, 400));
+        button0.setPrefHeight(40);
+        button0.setPrefWidth(40);
+        button0.setLayoutX(0.0);
+        button0.setLayoutY(0.0);
+
+        conveyorButton.setPrefHeight(40);
+        conveyorButton.setPrefWidth(40);
+        conveyorButton.setLayoutY(45.0);
+        conveyorButton.setLayoutX(0.0);
+
+        lightButton.setPrefHeight(40);
+        lightButton.setPrefWidth(100);
+        lightButton.setLayoutY(129.0);
+        lightButton.setLayoutX(125.0);
+
+
+        pane.getChildren().add(button0);
+        pane.getChildren().add(conveyorButton);
+        pane.getChildren().add(lightButton);
+
+        primaryStage.setScene(new Scene(pane, 400, 400));
         primaryStage.setOnCloseRequest(event -> {
             executor.kill();
         });
