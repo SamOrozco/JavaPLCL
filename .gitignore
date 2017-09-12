@@ -1,6 +1,5 @@
-
-.gitignore
 .idea/
-pom.xml
 target/
 NodeTest.iml
+src/main/resources/
+src/test/
