@@ -1,16 +1,17 @@
 package node.light;
 
+import javafx.scene.control.Button;
 import node.*;
 
 public class LightNode extends NodeConditionBuilder {
-    String name;
+    Button button;
 
-    public String getName() {
-        return name;
+    public LightNode(){
+
     }
 
-    public void setName(String name) {
-        name = this.name;
+    public LightNode(Button button) {
+        this.button = button;
     }
 
     public boolean conditionIsTrue() {
@@ -19,11 +20,11 @@ public class LightNode extends NodeConditionBuilder {
 
     @Override
     public void onAction() {
-        System.out.println("On");
+        button.setStyle("-fx-background-color: #f4e842");
     }
 
     @Override
     public void offAction() {
-        System.out.println("off");
+        button.setStyle("-fx-background-color: #72726b");
     }
 }

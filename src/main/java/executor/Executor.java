@@ -9,20 +9,38 @@ import static utils.Utils.safe;
 
 public class Executor {
     private ArrayList<Node> nodes;
-    private final int waitTime = 1000;
+    private int waitTime;
+    private boolean running = true;
+
+
+
+    public Executor(int waitTime) {
+        this.waitTime = waitTime;
+    }
 
     public void execute() throws InterruptedException {
-        while (true) {
-            for (Node currentNode : safe(nodes)) {
-                if (currentNode.conditionIsTrue()) {
-                    currentNode.on();
-                } else {
-                    currentNode.off();
+        Thread executorThread = new Thread(() -> {
+            while (running) {
+                for (Node currentNode : safe(nodes)) {
+                    if (currentNode.conditionIsTrue()) {
+                        currentNode.on();
+                    } else {
+                        currentNode.off();
+                    }
+                }
+                try {
+                    Thread.sleep(waitTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+        });
 
-            Thread.sleep(waitTime);
-        }
+        executorThread.start();
+    }
+
+    public void kill() {
+        running = false;
     }
 
     public ArrayList<Node> getNodes() {

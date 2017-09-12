@@ -5,9 +5,7 @@ public interface Node {
 
     void off();
 
-    String getName();
-
-    void setName(String name);
+    void toggle();
 
     boolean conditionIsTrue();
 

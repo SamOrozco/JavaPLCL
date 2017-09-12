@@ -11,25 +11,24 @@ public abstract class NodeConditionBuilder implements Node {
     private Consumer<Void> onAction;
     private Supplier<Void> offAction;
 
-    abstract public String getName();
-
-    abstract public void setName(String name);
-
     abstract public boolean conditionIsTrue();
 
-
+    public void toggle(){
+        if(state) off();
+        else on();
+    }
     public boolean getState() {
         return state;
     }
 
     public void on() {
-        onAction();
         state = true;
+        onAction();
     }
 
     public void off() {
-        offAction();
         state = false;
+        offAction();
     }
 
     public boolean evaluate() {

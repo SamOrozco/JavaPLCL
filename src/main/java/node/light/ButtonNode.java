@@ -1,5 +1,8 @@
 package node.light;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import node.NodeConditionBuilder;
 
 import javax.swing.*;
@@ -7,40 +10,28 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class ButtonNode extends NodeConditionBuilder {
-    JButton button;
+    Button button;
 
+    public ButtonNode() {
 
-    public ButtonNode(JButton button) {
+    }
+
+    public ButtonNode(Button button) {
         this.button = button;
-    }
-
-
-    @Override
-    public String getName() {
-        return "button";
-    }
-
-    @Override
-    public void setName(String name) {
-
     }
 
     @Override
     public boolean conditionIsTrue() {
-        return false;
+        return evaluate();
     }
 
-//    @Override
-//    public void onAction() {
-//        System.out.println("Button On");
-//    }
-//
-//    @Override
-//    public void offAction() {
-//        System.out.println("Button On");
-//    }
+    @Override
+    public void onAction() {
+        button.setStyle("-fx-background-color: #00ff00");
+    }
 
-    public void updateColor() {
-        button.setBackground(new Color(233,233,233));
+    @Override
+    public void offAction() {
+        button.setStyle("-fx-background-color: #ff0000");
     }
 }
