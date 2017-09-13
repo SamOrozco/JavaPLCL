@@ -6,17 +6,18 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class NodeConditionBuilder implements Node {
-    protected boolean state;
+    protected volatile boolean state;
     private ConditionEvaluator conditionEvaluator;
     private Consumer<Void> onAction;
     private Supplier<Void> offAction;
 
     abstract public boolean conditionIsTrue();
 
-    public void toggle(){
-        if(state) off();
+    public void toggle() {
+        if (state) off();
         else on();
     }
+
     public boolean getState() {
         return state;
     }

@@ -1,4 +1,4 @@
-package node.light;
+package node.nodes;
 
 import javafx.scene.control.Button;
 import node.*;

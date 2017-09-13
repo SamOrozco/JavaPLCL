@@ -1,10 +1,7 @@
 import executor.Executor;
 import input.UserInput;
-import node.ConditionStatement;
-import node.NodeCondition;
-import node.NodeOperator;
-import node.light.LDNode;
-import node.light.LightNode;
+import node.nodes.LDNode;
+import node.nodes.LightNode;
 
 public class main {
 

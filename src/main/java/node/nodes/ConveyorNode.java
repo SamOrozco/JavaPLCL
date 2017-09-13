@@ -1,4 +1,4 @@
-package node.light;
+package node.nodes;
 
 import javafx.scene.control.Button;
 import node.NodeConditionBuilder;
@@ -7,7 +7,7 @@ public class ConveyorNode extends NodeConditionBuilder {
     Button button = new Button();
     double maxX;
     double minX;
-    private int operator;
+    protected int operator;
 
     public ConveyorNode(Button button, int operator) {
         button.setText("    ");
@@ -42,5 +42,9 @@ public class ConveyorNode extends NodeConditionBuilder {
 
     @Override
     public void offAction() {
+        double xCord = this.button.getLayoutX();
+        if (xCord >= 0) {
+            this.button.setLayoutX(xCord - (.5));
+        }
     }
 }

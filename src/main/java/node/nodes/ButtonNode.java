@@ -1,16 +1,11 @@
-package node.light;
+package node.nodes;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import node.NodeConditionBuilder;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.function.Supplier;
 
 public class ButtonNode extends NodeConditionBuilder {
     Button button;
+    boolean clicked;
 
     public ButtonNode() {
 
@@ -27,11 +22,17 @@ public class ButtonNode extends NodeConditionBuilder {
 
     @Override
     public void onAction() {
+        clicked = true;
         button.setStyle("-fx-background-color: #00ff00");
     }
 
     @Override
     public void offAction() {
+        clicked = false;
         button.setStyle("-fx-background-color: #ff0000");
+    }
+
+    public boolean isClicked() {
+        return clicked;
     }
 }

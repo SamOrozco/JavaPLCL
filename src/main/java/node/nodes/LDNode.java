@@ -1,4 +1,4 @@
-package node.light;
+package node.nodes;
 
 import node.NodeConditionBuilder;
 
