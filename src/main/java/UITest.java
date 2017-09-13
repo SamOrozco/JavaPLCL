@@ -2,10 +2,7 @@ import executor.Executor;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import node.light.ButtonNode;
 import node.light.ConveyorNode;
@@ -26,10 +23,20 @@ public class UITest extends Application {
         });
 
 
-        Button conveyorButton = new Button();
-        ConveyorNode conveyorNode = new ConveyorNode(conveyorButton);
-        conveyorNode.setBounds(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getMinX());
-        conveyorNode.builder()
+        //conveyor one
+        Button conveyorButton0 = new Button();
+        ConveyorNode conveyorNode0 = new ConveyorNode(conveyorButton0, 1);
+        conveyorNode0.setBounds(800, 0);
+        conveyorNode0.builder()
+                .ifTrue(buttonNode0::conditionIsTrue)
+                .build();
+
+
+        //conveyor two
+        Button conveyorButton1 = new Button();
+        ConveyorNode conveyorNode1 = new ConveyorNode(conveyorButton1, 2);
+        conveyorNode1.setBounds(800, 0);
+        conveyorNode1.builder()
                 .ifTrue(buttonNode0::conditionIsTrue)
                 .build();
 
@@ -48,7 +55,8 @@ public class UITest extends Application {
         //executor
         executor.getNodes().add(buttonNode0);
         executor.getNodes().add(lightNode);
-        executor.getNodes().add(conveyorNode);
+        executor.getNodes().add(conveyorNode0);
+        executor.getNodes().add(conveyorNode1);
         executor.execute();
 
         //ui
@@ -59,22 +67,28 @@ public class UITest extends Application {
         button0.setLayoutX(0.0);
         button0.setLayoutY(0.0);
 
-        conveyorButton.setPrefHeight(40);
-        conveyorButton.setPrefWidth(40);
-        conveyorButton.setLayoutY(45.0);
-        conveyorButton.setLayoutX(0.0);
+        conveyorButton0.setPrefHeight(40);
+        conveyorButton0.setPrefWidth(400);
+        conveyorButton0.setLayoutY(45.0);
+        conveyorButton0.setLayoutX(0.0);
+
+        conveyorButton1.setPrefHeight(40);
+        conveyorButton1.setPrefWidth(400);
+        conveyorButton1.setLayoutY(90.0);
+        conveyorButton1.setLayoutX(0.0);
 
         lightButton.setPrefHeight(40);
         lightButton.setPrefWidth(100);
-        lightButton.setLayoutY(129.0);
+        lightButton.setLayoutY(200.0);
         lightButton.setLayoutX(125.0);
 
 
         pane.getChildren().add(button0);
-        pane.getChildren().add(conveyorButton);
+        pane.getChildren().add(conveyorButton0);
+        pane.getChildren().add(conveyorButton1);
         pane.getChildren().add(lightButton);
 
-        primaryStage.setScene(new Scene(pane, 400, 400));
+        primaryStage.setScene(new Scene(pane, 800, 800));
         primaryStage.setOnCloseRequest(event -> {
             executor.kill();
         });

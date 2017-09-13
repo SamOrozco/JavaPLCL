@@ -1,21 +1,19 @@
 package node.light;
 
-import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import node.NodeConditionBuilder;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ConveyorNode extends NodeConditionBuilder {
     Button button = new Button();
     double maxX;
     double minX;
+    private int operator;
 
-    public ConveyorNode(Button button) {
+    public ConveyorNode(Button button, int operator) {
         button.setText("    ");
         button.setStyle("-fx-background-color: #000000");
         this.button = button;
+        this.operator = operator;
     }
 
     public ConveyorNode() {
@@ -35,11 +33,11 @@ public class ConveyorNode extends NodeConditionBuilder {
     @Override
     public void onAction() {
         double xCord = this.button.getLayoutX();
-        if (xCord >= 500) {
+        if (xCord >= maxX) {
             this.button.setLayoutX(minX);
             return;
         }
-        this.button.setLayoutX(xCord + .5);
+        this.button.setLayoutX(xCord + (.5 * operator));
     }
 
     @Override
